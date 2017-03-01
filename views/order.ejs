@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>订餐</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      h1{
+        text-align: center;
+      }
+      .box{
+        line-height: 30px;
+        margin: 0 auto;
+        width:180px;
+        padding-left: 20px;
+        background-color: #ccc;
+        
+      }
+      .food{
+        min-width:150px;
+        display: inline-block;
+        font-size: 20px;
+      }
+      .radio{
+        width:26px;
+        height:26px;
+      }
+      .button{
+        display: block;
+        width:280px;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top:20px;
+        height:30px;
+      }
+      .fl{
+          float: left;
+      }
+      .fr{
+          margin-left:100px;
+      }
+    </style>
+    <script src="/javascripts/clipboard.min.js"></script>
+    
+  </head>
+  <body>
+    <% if (p_order == 1) {%>
+        <script>alert("订餐成功!")</script>
+    <% } else if(p_order == 2) {%>
+        <script>alert("您已经订过餐啦!")</script>
+    <% } %>    
+    <% 
+        sum = 0;
+        if(orows !== null) {      
+        for (let row of orows) { 
+            sum += parseInt(row.count);
+    %>
+        <div class="box">
+          <label class="food"><%= row.food %><%= row.count%>份</label>        
+        </div>
+    <% } %>
+    <div class="box">
+        <label class="food">共<%= sum%>份</label>        
+    </div>
+    <%} %>
+    <div class = "button">
+        <input type="text" id="foo" >
+        <button class="copy" data-clipboard-action="copy" data-clipboard-target="#foo">复制</button>
+    </div>
+    <div class = "fl">
+        <% if(orows2 !== null) { 
+        for (let row of orows2) { %>
+            <div>
+            <label><%= row.title %>  <%= row.name %>  <%= row.food %></label>        
+            </div>
+        <% }} %>
+    </div>
+    <div class = "fl fr">    
+        <%if(orows !== null) {      
+            for (let row of orows3) { %>
+            <div>
+            <label><%= row.title %><%= row.count%>人</label>        
+            </div>
+        <% } %>
+        <% } %>
+    </div>    
+    <script>
+        let texts = document.getElementsByClassName("food");
+        let context = "";
+        for(let text of texts){
+            context += text.innerHTML + "  ";
+        }
+        document.getElementById("foo").value = context;
+        var clipboard = new Clipboard('.copy');
+        clipboard.on('success', function(e) {
+            console.log(e);
+        });
+        clipboard.on('error', function(e) {
+            console.log(e);
+        });
+    </script>
+  </body>
+</html>

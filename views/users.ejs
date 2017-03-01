@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>订餐</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      h1{
+        text-align: center;
+      }
+      .box{
+        line-height: 30px;
+        margin: 0 auto;
+        width:220px;
+      }
+      .food{
+        min-width:150px
+        display: inline-block;
+        font-size: 26px;
+      }
+      .radio{
+        width:26px;
+        height:26px;
+      }
+      .button{
+        display: block;
+        width:180px;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top:20px;
+        height:30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>请先登录</h1>
+    <form action="/post_login" method="post">
+      <div class="box">
+        <% if (is_register == 1) {%>
+        <script>alert("您已经注册过了!")</script>
+        <% } else if(is_register == 2)  {%>
+        <script>alert("注册成功!")</script>
+        <% } else if(is_register == 3)  {%>
+        <script>alert("登录失败!请检查姓名和部门是否正确,如没注册请先注册")</script>
+        <% } %>   
+        <label>姓名:</label><input type="text" name="name" value=<%= name %> >
+      </div>
+      <div class="box">
+        <label>部門:</label>
+        <select name="select">
+            <% for (let row of rows) { %>
+                <option value =<%= row.id %>><%= row.title %></option>
+            <% } %>
+        </select>
+      </div>  
+      <input type="submit" value="登录" class="button">
+      <a href="/register" class="button">注册</a>
+    </from>
+  </body>
+</html

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>订餐</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      h1{
+        text-align: center;
+      }
+      .box{
+        line-height: 30px;
+        margin: 0 auto;
+        width:200px;
+        display: block;
+      }
+      .food{
+        min-width:150px;
+        display: inline-block;
+        font-size: 26px;
+      }
+      .radio{
+        width:26px;
+        height:26px;
+      }
+      .button{
+        display: block;
+        width:180px;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top:20px;
+        height:30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><%= rows[0].restaurant %></h1>
+    <% if (is_null == 1) {%>
+      <script>alert("订餐不能为空!")</script>
+    <% } %>
+    <form action="/select/post_order" method="post">
+      <% for (let row of rows) { %>
+        <div class="box">
+          <label class="food"><%= row.food %></label>
+          <input type="radio" name="radio" class="radio" value= <%= row.id%> >
+        </div>
+      <% } %>
+      <input type="submit" value="提交" class="button">
+      <input name="uid" type="hidden" value=<%= uid %>>
+      <input type="hidden" name="name" value=<%= name %>>
+      <label class="button">姓名:<%= name %></label>
+    </from>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>订餐</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      h1{
+        text-align: center;
+      }
+      .box{
+        line-height: 30px;
+        margin: 0 auto;
+        width:220px;
+      }
+      .food{
+        min-width:150px;
+        display: inline-block;
+        font-size: 26px;
+      }
+      .radio{
+        width:26px;
+        height:26px;
+      }
+      .button{
+        display: block;
+        width:180px;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top:20px;
+        height:30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>请注册</h1>   
+    <% if (error == 1) {%>
+      <script>alert("姓名不能为空!")</script>
+    <% } %>
+    <form action="/register/post_register" method="post">
+      <div class="box">
+        <label>姓名:</label><input type="text" name="name">
+      </div>
+      <div class="box">
+        <label>部門:</label>
+        <select name="select">
+            <% for (let row of rows) { %>
+                <option value = <%= row.id %> ><%= row.title %></option>
+            <% } %>
+        </select>
+      </div>  
+      <input type="submit" value="提交" class="button">
+    </from>
+  </body>
+</html>
